@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import About from "./pages/About";
+import Dashboard from "./pages/Dashboard";
 import Fish from "./pages/Fish";
 import LandingPage from "./pages/LandingPage";
 import Meat from "./pages/Meat";
@@ -9,10 +10,14 @@ import NotFound from "./pages/NotFound";
 import Product2 from "./pages/Product2";
 import Services from "./pages/Services";
 import Shoes from "./pages/Shoes";
+import SignIn from "./pages/SignIn";
 import StudentSignUp from "./pages/StudentSignUp";
 import UserProfile from "./pages/UserProfile";
+import UserSignUp from "./pages/userSignUp";
 
 const App = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <>
       <Navbar />
@@ -29,8 +34,14 @@ const App = () => {
           <Route path="meat" element={<Meat />} />
           <Route path="shoe" element={<Shoes />} />
         </Route>
+        <Route path="/user/register" element={<UserSignUp />} />
+        <Route path="/user/signin" element={<SignIn />} />
+        <Route
+          path="/dashboard"
+          element={token ? <Dashboard /> : <Navigate to="/user/signin" />}
+        />
         {/* <Route path="/product/fish" element={<Fish/>}/> */}
-        <Route path="*" element={<NotFound />} /> //Wildcard Route
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
